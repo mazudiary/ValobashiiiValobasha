@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love You So Much - Our Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0b0b1e 0%, #1e0b33 50%, #330b24 100%);
+            font-family: 'Arial', sans-serif;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Navigation Back Button */
+        .nav-back {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .back-btn {
+            background: rgba(255, 94, 188, 0.1);
+            border: 2px solid #ff5ebc;
+            color: #ff5ebc;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(255, 94, 188, 0.3);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 94, 188, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(255, 94, 188, 0.5);
+        }
+
+        /* Main Title */
+        .main-title {
+            text-align: center;
+            padding: 80px 20px 40px;
+            position: relative;
+        }
+
+        .title-text {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff5ebc, #4de8ff, #c26eff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 94, 188, 0.5);
+            margin-bottom: 20px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Gallery Container */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .photo-frame {
+            position: relative;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 
+                0 0 30px rgba(255, 94, 188, 0.3),
+                0 0 60px rgba(77, 232, 255, 0.2);
+            transform: rotate(0deg);
+            transition: all 0.5s ease;
+            overflow: hidden;
+        }
+
+        .photo-image {
+            width: 100%;
+            height: 320px; /* Portrait ratio for desktop */
+            background: linear-gradient(135deg, #ff9eee, #4de8ff);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            max-width: 260px;
+            margin: 0 auto;
+        }
+
+        .photo-image img {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            box-shadow: 0 0 18px rgba(255,94,188,0.18);
+            display: block;
+            background: #eee;
+            object-fit: cover;
+        }
+
+        .photo-image span {
+            font-size: 2rem;
+            color: white;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            display: block;
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .photo-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.3)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.4)"/><circle cx="60" cy="70" r="2.5" fill="rgba(255,255,255,0.2)"/><circle cx="30" cy="80" r="1" fill="rgba(255,255,255,0.5)"/></svg>');
+            pointer-events: none;
+        }
+
+        .photo-caption {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Arrow Annotations */
+        .arrow-annotation {
+            position: absolute;
+            color: #ff5ebc;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ff5ebc;
+            z-index: 15;
+            animation: float 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .arrow-annotation::before {
+            content: '→';
+            font-size: 2rem;
+            margin-right: 10px;
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Position arrows around photos */
+        .photo-frame:nth-child(1) .arrow-annotation {
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .photo-frame:nth-child(2) .arrow-annotation {
+            top: 50%;
+            right: -200px;
+            transform: translateY(-50%);
+        }
+
+        .photo-frame:nth-child(3) .arrow-annotation {
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .photo-frame:nth-child(4) .arrow-annotation {
+            top: 50%;
+            left: -200px;
+            transform: translateY(-50%);
+        }
+
+        .photo-frame:nth-child(5) .arrow-annotation {
+            top: -40px;
+            right: 20%;
+        }
+
+        .photo-frame:nth-child(6) .arrow-annotation {
+            bottom: -40px;
+            right: 20%;
+        }
+
+        /* Heart particles background */
+        .heart-particle {
+            position: fixed;
+            pointer-events: none;
+            color: #ff5ebc;
+            font-size: 1.5rem;
+            opacity: 0.6;
+            animation: floatHeart 8s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Continue Button */
+        .continue-section {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .continue-btn {
+            background: rgba(255, 94, 188, 0.1);
+            border: 3px solid #ff5ebc;
+            color: #ff5ebc;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            text-decoration: none;
+            text-shadow: 0 0 10px #ff5ebc;
+            box-shadow: 
+                0 0 30px rgba(255, 94, 188, 0.3),
+                inset 0 0 30px rgba(255, 94, 188, 0.1);
+        }
+
+        .continue-btn:hover {
+            background: rgba(255, 94, 188, 0.2);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 10px 40px rgba(255, 94, 188, 0.5),
+                inset 0 0 40px rgba(255, 94, 188, 0.2);
+            text-shadow: 0 0 20px #ff5ebc;
+        }
+
+        .continue-heart {
+            width: 30px;
+            height: 30px;
+            filter: drop-shadow(0 0 10px #ff5ebc);
+            animation: heartPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title-text {
+                font-size: 2.5rem;
+            }
+
+            .photo-frame {
+                padding: 15px;
+            }
+
+            .photo-image {
+                height: 220px;
+                max-width: 160px;
+            }
+
+            .photo-image img { max-height: 100%; }
+
+            .photo-image span { font-size: 1.3rem; }
+
+            .arrow-annotation {
+                font-size: 1rem;
+                position: static;
+                text-align: center;
+                margin-top: 10px;
+                display: block;
+            }
+
+            .arrow-annotation::before {
+                content: '↓';
+                display: block;
+                margin: 0 auto 5px;
+            }
+
+            .photo-frame:nth-child(2) .arrow-annotation,
+            .photo-frame:nth-child(4) .arrow-annotation {
+                right: auto;
+                left: auto;
+                transform: none;
+            }
+
+            .continue-btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+
+            .nav-back {
+                top: 10px;
+                left: 10px;
+            }
+
+            .back-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title-text {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .main-title {
+                padding: 60px 15px 30px;
+            }
+
+            .gallery-container {
+                padding: 20px 15px;
+            }
+
+            .photo-image {
+                height: 160px;
+                max-width: 110px;
+            }
+
+            .photo-image img { max-height: 100%; }
+
+            .photo-image span { font-size: 1.1rem; }
+
+            .continue-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+        }
+
+        .next-arrow-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin: 30px auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+            outline: none;
+        }
+
+        .next-arrow-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .next-arrow-btn svg { width: 32px; height: 32px; }
+        }
+
+        @media (max-width: 480px) {
+            .next-arrow-btn svg { width: 28px; height: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-back">
+        <a href="heart.html" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Back</span>
+        </a>
+    </div>
+
+    <!-- Main Title -->
+    <div class="main-title">
+        <h1 class="title-text">I Love You So Oooooooooooooo Much!</h1>
+        <p class="subtitle">Our Beautiful Memories Together</p>
+    </div>
+
+    <!-- Gallery (Slider) -->
+    <div class="gallery-container">
+        <div class="photo-frame" id="photoFrame">
+            <div class="arrow-annotation" id="arrowAnnotation"></div>
+            <div class="photo-image" id="photoImage">
+                <img id="galleryImg" src="" alt="Gallery Photo" style="display:none;" />
+                <span id="photoText"></span>
+            </div>
+            <p class="photo-caption" id="photoCaption"></p>
+            <button class="next-arrow-btn" id="nextArrowBtn" aria-label="Next">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="20" r="19" stroke="#ff5ebc" stroke-width="2" fill="rgba(255,94,188,0.08)"/>
+                    <path d="M16 12L24 20L16 28" stroke="#ff5ebc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Continue Button -->
+        <div class="continue-section">
+            <a href="propose.html" class="continue-btn">
+                <svg class="continue-heart" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50,30 L65,15 A15,15 0 0,1 90,40 L50,80 L10,40 A15,15 0 0,1 35,15 L50,30" 
+                          stroke="#ff5ebc" stroke-width="3" fill="rgba(255, 94, 188, 0.2)" />
+                </svg>
+                <span>Continue Our Love Story</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Gallery data with image URLs
+        const galleryData = [
+            {
+                annotation: 'Look at this amazing moment!',
+                image: '💕  💕',
+                imgUrl: 'assets/1.jpg',
+                caption: 'When we first met and sparks flew everywhere'
+            },
+            {
+                annotation: 'This is so special!',
+                image: '🌹 🌹',
+                imgUrl: 'assets/2.jpg',
+                caption: 'Walking together under the sunset sky'
+            },
+            {
+                annotation: 'My heart melts every time!',
+                image: '✨  ✨',
+                imgUrl: 'assets/3.jpg',
+                caption: "Laughing together like there's no tomorrow"
+            },
+            {
+                annotation: 'You make me so happy!',
+                image: '🎊  🎊',
+                imgUrl: 'assets/4.jpg',
+                caption: 'Every day with you feels like a celebration'
+            },
+            {
+                annotation: 'Forever and always!',
+                image: '💖  💖',
+                imgUrl: 'assets/5.jpg',
+                caption: 'The way you look at me makes my world complete'
+            },
+            {
+                annotation: "You're my everything!",
+                image: '🌟  🌟',
+                imgUrl: 'assets/6.jpg',
+                caption: 'Building our future together, one memory at a time'
+            }
+        ];
+        let currentIndex = 0;
+
+        function showGalleryItem(index) {
+            const item = galleryData[index];
+            document.getElementById('arrowAnnotation').textContent = item.annotation;
+            document.getElementById('photoText').textContent = item.image;
+            document.getElementById('photoCaption').textContent = item.caption;
+            const img = document.getElementById('galleryImg');
+            if (item.imgUrl) {
+                img.src = item.imgUrl;
+                img.style.display = 'block';
+            } else {
+                img.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showGalleryItem(currentIndex);
+            document.getElementById('nextArrowBtn').addEventListener('click', function() {
+                currentIndex = (currentIndex + 1) % galleryData.length;
+                showGalleryItem(currentIndex);
+            });
+        });
+    </script>
+</body>
+</html>

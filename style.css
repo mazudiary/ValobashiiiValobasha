@@ -1,0 +1,81 @@
+body {
+  background: #131b21;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 50%;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+svg#flower-frame {
+  height: 90vh;
+  width: 100%;
+  max-width: 100%;
+}
+
+
+
+#Footer_group_1_,
+[id^=PinkFlowerGroup],
+[id^=BaseGroup] path,
+[id^=LeafGroup] path,
+path[id^=Stroke],
+g[id^=BudGroup] g[id^=BudGroup] g[id^=Bud],
+#Bud8_1_,
+#Bud10_1_,
+#Bud23_1_,
+#Bud26_1_,
+[id^=Dots],
+[id^=Flourish] {
+  visibility: hidden;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  .container {
+    width: 90%;
+    padding: 0 5%;
+  }
+  
+  svg#flower-frame {
+    height: 80vh;
+    min-height: 400px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    width: 95%;
+    padding: 0 2.5%;
+  }
+  
+  svg#flower-frame {
+    height: 70vh;
+    min-height: 350px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .container {
+    width: 100%;
+    padding: 0;
+  }
+  
+  svg#flower-frame {
+    height: 65vh;
+    min-height: 300px;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  svg#flower-frame {
+    height: 85vh;
+    min-height: 250px;
+  }
+}
