@@ -474,13 +474,47 @@
       const convinceText = document.getElementById('convinceText');
       const tryAgainBtn = document.getElementById('tryAgainBtn');
       const tryAgainBtnWrap = document.getElementById('tryAgainBtnWrap');
+
       const convinceMessages = [
-        "Are you sure? My heart is super cute and persistent! 💗",
-        "But... I brought you all the stars and hearts! 🌟💖",
-        "I promise to make you smile every day! 🥺",
-        "No one will love you more than me! Please say yes? 🥰",
-        "I'll wait forever... but I hope you say yes now! 💞"
-      ];
+	      "\n\nPremii, are you really going to say no to your biggest fan? 🥺💗",
+	      "\n\nDream Girl, I’ve been waiting my whole life just to find you! 💭🌸",
+	      "\n\nValobashar Bou, you’re the one and only queen of my heart! 👑💞",
+	      "\n\nPremii, I’ve collected all my smiles just to gift them to you. 😊🎁",
+	      "\n\nDream Girl, even the sky envies your beauty. 🌌✨",
+	      "\n\nValobashar Bou, your heart is my forever home. 🏡❤️",
+  "\n\nPremii, you live in every breath I take. 💓🌬️",
+  "\n\nDream Girl, you’re the best chapter of my love story. 📖💫",
+  "\n\nValobashar Bou, your ‘yes’ will make all my dreams come true! 💍🥰",
+  "\n\nPremii, even the moon’s light fades next to your beautiful smile. 🌙😊",
+  "\n\nDream Girl, my dream is to grow old with you. 💭👫",
+  "\n\nValobashar Bou, my love for you will never end… it only grows. ♾️💖",
+  "\n\nPremii, you’re the story I want to read over and over again. 📜💝",
+  "\n\nDream Girl, you are the most beautiful picture in my world. 🖼️😍",
+  "\n\nValobashar Bou, you are my dream, my best friend, and my home. 🏠💘",
+  "\n\nPremii, you’ve secretly stolen all my dreams. 😅💓",
+  "\n\nDream Girl, you are the magic in my story. ✨📖",
+  "\n\nValobashar Bou, even if you don’t say it, I know you’re my forever. 🥹💌",
+  "\n\nPremii, the stars whisper your name to me every night. 🌠❤️",
+  "\n\nDream Girl, my heart loves you more than I do! 💗🥰",
+  "\n\nValobashar Bou, your ‘yes’ would start the sweetest chapter of my life. 🌸💍",
+  "\n\nPremii, I want to be your shadow and the music in your heart. 🎵💞",
+  "\n\nDream Girl, I may be the king in my story, but you’ll always be my queen. 👑💖",
+  "\n\nValobashar Bou, without you, my story is incomplete. 📖🥺",
+
+  // Flirty, Dreamy, Fairy Tale Style
+  "\n\nPremii, you’re the princess of my dreams, and I’m the thief stealing your love! 😉💘",
+  "\n\nDream Girl, your eyes hold a story, and I want to be the hero of that story. ✨💭",
+  "\n\nValobashar Bou, I’m building a castle in my dreams just for you. One day I’ll be your prince! 🏰👑",
+  "\n\nPremii, you’ve set fire to all my dreams, but honestly, I jumped in willingly! 😏💫",
+  "\n\nDream Girl, you are the magic of my story, and my love is the spell just for you. 🎇❤️",
+  "\n\nValobashar Bou, if I were the hero of a fairy tale, I would fight the whole world for you! ⚔️💞",
+  "\n\nPremii, your ‘yes’ would color my world. Let’s write our fairy tale together! 📜✨",
+  "\n\nDream Girl, your hair is like clouds, your smile is moonlight, and I just want to be the hero in your story. 🌙💌",
+  "\n\nValobashar Bou, I will protect your dreams every night if you let me be your prince. 🛡️🌠",
+  "\n\nPremii, I want to get lost in your eyes and be trapped in your magical story forever! 🔮🥰",
+  "\n\nDream Girl, my love is an endless story, and at the end, you’ll always be my forever girl. 💍🌸",
+  "\n\nValobashar Bou, your ‘yes’ would begin our forever story, and I promise our fairy tale will always have a happy ending! 🎡💘"
+];
       let convinceIndex = 0;
       nextBtn.onclick = function() {
         mainText.style.display = 'none';
@@ -502,7 +536,7 @@
           convinceText.innerHTML = convinceMessages[convinceIndex % convinceMessages.length];
           // Show only Try Again and Yes (not No)
           tryAgainBtnWrap.innerHTML = `
-            <button id="tryAgainBtn">Try Again</button>
+            <button id="tryAgainBtn">No</button>
             <button onclick="respond('yes')" class="magic-btn">💖 Yes <span class="shimmer"></span></button>
           `;
           // Re-attach Try Again handler
